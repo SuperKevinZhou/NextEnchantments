@@ -1,0 +1,4 @@
+name: NextEnchantments
+version: '1.0-SNAPSHOT'
+main: kim.pvp.kevin16.plugins.NextEnchantments
+api-version: '1.21'
