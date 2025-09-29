@@ -1,4 +1,4 @@
-package kim.pvp.kevin16.plugins;
+package kim.pvp.kevin16.plugins.next_enchantments;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
