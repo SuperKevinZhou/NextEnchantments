@@ -1,0 +1,57 @@
+lang: zh-cn
+
+translations:
+  zh-cn:
+    category:
+      1: '普通'
+      2: '稀有'
+      3: '史诗'
+      4: '传说'
+    enchantments:
+      Rage:
+        name: '怒火'
+        description:
+          - '右键进入 {x} 秒狂暴模式'
+          - '对敌人造成 {y} 倍伤害的同时对自己造成 {z} 滴血伤害'
+          - '冷却时间: {cd} 秒'
+          - '可用于附魔剑'
+
+enchantments:
+  Rage:
+    max-level: 5
+    levels:
+      1:
+        category: 1
+        parameters:
+          x: 20
+          y: 1.2
+          z: 1
+          cd: 40
+      2:
+        category: 2
+        parameters:
+          x: 30
+          y: 1.5
+          z: 1
+          cd: 30
+      3:
+        category: 2
+        parameters:
+          x: 30
+          y: 1.8
+          z: 1
+          cd: 25
+      4:
+        category: 3
+        parameters:
+          x: 45
+          y: 2
+          z: 0.5
+          cd: 20
+      5:
+        category: 4
+        parameters:
+          x: 60
+          y: 3
+          z: 0.5
+          cd: 15

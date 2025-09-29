@@ -1,5 +1,6 @@
 package kim.pvp.kevin16.plugins.next_enchantments;
 
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Collections;
@@ -8,7 +9,8 @@ import java.util.Map;
 
 public final class NextEnchantments extends JavaPlugin {
 
-    private static final Map<Integer, String> ENCHANTMENTS_MAP;
+    public static final Map<Integer, String> ENCHANTMENTS_MAP;
+    public static String lang;
 
     static {
         Map<Integer, String> tempMap = new HashMap<>();
@@ -23,8 +25,8 @@ public final class NextEnchantments extends JavaPlugin {
     public void onEnable() {
         // Plugin startup logic
         getLogger().info("NextEnchantments Plugin has been enabled!");
-        saveResource("lang.yml", false);
-        saveResource("enchantments.yml", false);
+        saveDefaultConfig();
+        lang = getConfig().getString("lang");
     }
 
     @Override
@@ -32,4 +34,8 @@ public final class NextEnchantments extends JavaPlugin {
         // Plugin shutdown logic
         getLogger().info("NextEnchantments Plugin has been disabled!");
     }
+
+//    public ItemStack getEnchantmentBook(int id, int level) {
+//
+//    }
 }
