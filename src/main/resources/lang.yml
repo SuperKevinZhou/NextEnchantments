@@ -1,0 +1,17 @@
+lang: en
+
+translations:
+  zh-cn:
+    category:
+      1: '普通'
+      2: '稀有'
+      3: '史诗'
+      4: '传说'
+    enchantments:
+      Rage:
+        name: '怒火'
+        description:
+          - '右键进入 {x} 秒狂暴模式'
+          - '对敌人造成 {y} 倍伤害的同时对自己造成 {z} 滴血伤害'
+          - '冷却时间: {cd} 秒'
+          - '可用于附魔剑'
