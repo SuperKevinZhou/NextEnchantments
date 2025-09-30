@@ -43,49 +43,49 @@ public final class NextEnchantments extends JavaPlugin {
     }
 
     public ItemStack getEnchantmentBook(int id, int level) {
-        // 获取附魔名称
+        // Get enchantment name
         String enchantKey = ENCHANTMENTS_MAP.get(id);
         if (enchantKey == null) {
-            getLogger().warning("未知的附魔ID: " + id);
+            getLogger().warning("Unknown enchantment id: " + id);
             return new ItemStack(Material.AIR);
         }
 
-        // 创建附魔书物品
+        // Create enchanted book item
         ItemStack book = new ItemStack(Material.ENCHANTED_BOOK);
         ItemMeta meta = book.getItemMeta();
 
-        // 从配置获取附魔信息
+        // Get enchantment info from the config.yml
         String path = "enchantments." + enchantKey + ".levels." + level;
         if (!getConfig().contains(path)) {
-            getLogger().warning("找不到附魔配置: " + path);
+            getLogger().warning("Cannot found enchantment config: " + path);
             return new ItemStack(Material.AIR);
         }
 
-        // 获取附魔参数
+        // Get enchantment parameters
         int category = getConfig().getInt(path + ".category");
         int x = getConfig().getInt(path + ".parameters.x");
         double y = getConfig().getDouble(path + ".parameters.y");
         double z = getConfig().getDouble(path + ".parameters.z");
         int cd = getConfig().getInt(path + ".parameters.cd");
 
-        // 获取本地化文本
+        // Localization
         String enchantName = getConfig().getString("translations." + lang + ".enchantments." + enchantKey + ".name", enchantKey);
         String categoryName = getConfig().getString("translations." + lang + ".category." + category, String.valueOf(category));
 
-        // 构建描述
+        // Build lore
         List<String> descriptionLines = getConfig().getStringList("translations." + lang + ".enchantments." + enchantKey + ".description");
         List<Component> lore = new ArrayList<>();
 
-        // 使用Paper的Adventure API创建更漂亮的文本组件
+        // Create text component
         Component categoryComponent = Component.text("分类: " + categoryName)
                 .color(TextColor.color(0xAAAAAA))
                 .decoration(TextDecoration.ITALIC, false);
         lore.add(categoryComponent);
 
-        // 添加空行
+        // Add blank line
         lore.add(Component.text(""));
 
-        // 替换描述中的占位符并添加到lore
+        // Replace placeholders
         for (String line : descriptionLines) {
             String processedLine = line
                     .replace("{x}", String.valueOf(x))
@@ -99,7 +99,7 @@ public final class NextEnchantments extends JavaPlugin {
             lore.add(lineComponent);
         }
 
-        // 设置显示名称和描述（使用Paper的Adventure API）
+        // Set lore
         Component displayName = Component.text(enchantName + " " + toRoman(level))
                 .color(NamedTextColor.LIGHT_PURPLE)
                 .decoration(TextDecoration.ITALIC, false)
@@ -107,10 +107,10 @@ public final class NextEnchantments extends JavaPlugin {
         meta.displayName(displayName);
         meta.lore(lore);
 
-        // 添加物品标志
+        // Add ItemFlag
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
 
-        // 使用持久化数据容器存储附魔信息
+        // Add PersistentDataContainer
         NamespacedKey enchantKeyObj = new NamespacedKey(this, "custom_enchant");
         meta.getPersistentDataContainer().set(enchantKeyObj, PersistentDataType.STRING, enchantKey + ":" + level);
 
@@ -118,7 +118,7 @@ public final class NextEnchantments extends JavaPlugin {
         return book;
     }
 
-    // 将数字转换为罗马数字（用于显示附魔等级）
+    // Number to Roman Number
     private String toRoman(int number) {
         return switch (number) {
             case 1 -> "I";
