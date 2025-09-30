@@ -154,4 +154,19 @@ public final class NextEnchantments extends JavaPlugin {
             default -> String.valueOf(number);
         };
     }
+
+    public Map<String, Object> getEnchantmentParameters(String enchantKey, int level) {
+        Map<String, Object> parameters = new HashMap<>();
+        String path = "enchantments." + enchantKey + ".levels." + level;
+
+        if (getConfig().contains(path + ".parameters")) {
+            ConfigurationSection paramsSection = getConfig().getConfigurationSection(path + ".parameters");
+            if (paramsSection != null) {
+                for (String paramKey : paramsSection.getKeys(false)) {
+                    parameters.put(paramKey, paramsSection.get(paramKey));
+                }
+            }
+        }
+        return parameters;
+    }
 }
