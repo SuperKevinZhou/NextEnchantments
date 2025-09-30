@@ -6,11 +6,13 @@ import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
@@ -61,12 +63,20 @@ public final class NextEnchantments extends JavaPlugin {
             return new ItemStack(Material.AIR);
         }
 
-        // Get enchantment parameters
+        // Get enchantment parameters dynamically
         int category = getConfig().getInt(path + ".category");
-        int x = getConfig().getInt(path + ".parameters.x");
-        double y = getConfig().getDouble(path + ".parameters.y");
-        double z = getConfig().getDouble(path + ".parameters.z");
-        int cd = getConfig().getInt(path + ".parameters.cd");
+
+        // Dynamically load all parameters from config
+        Map<String, Object> parameters = new HashMap<>();
+        String parametersPath = path + ".parameters";
+        if (getConfig().contains(parametersPath)) {
+            ConfigurationSection paramsSection = getConfig().getConfigurationSection(parametersPath);
+            if (paramsSection != null) {
+                for (String paramKey : paramsSection.getKeys(false)) {
+                    parameters.put(paramKey, paramsSection.get(paramKey));
+                }
+            }
+        }
 
         // Localization
         String enchantName = getConfig().getString("translations." + lang + ".enchantments." + enchantKey + ".name", enchantKey);
@@ -85,17 +95,9 @@ public final class NextEnchantments extends JavaPlugin {
         // Add blank line
         lore.add(Component.text(""));
 
-        // Replace placeholders
+        // Dynamically replace placeholders based on actual parameters
         for (String line : descriptionLines) {
-            String processedLine = line
-                    .replace("{x}", String.valueOf(x))
-                    .replace("{y}", String.valueOf(y))
-                    .replace("{z}", String.valueOf(z))
-                    .replace("{cd}", String.valueOf(cd));
-
-            Component lineComponent = Component.text(processedLine)
-                    .color(TextColor.color(0x7F7F7F))
-                    .decoration(TextDecoration.ITALIC, false);
+            Component lineComponent = getComponent(line, parameters);
             lore.add(lineComponent);
         }
 
@@ -110,12 +112,30 @@ public final class NextEnchantments extends JavaPlugin {
         // Add ItemFlag
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
 
-        // Add PersistentDataContainer
+        // Add PersistentDataContainer with all parameters
         NamespacedKey enchantKeyObj = new NamespacedKey(this, "custom_enchant");
-        meta.getPersistentDataContainer().set(enchantKeyObj, PersistentDataType.STRING, enchantKey + ":" + level);
+
+        // Store enchantment ID and level in PDC
+        meta.getPersistentDataContainer().set(enchantKeyObj, PersistentDataType.STRING,
+                enchantKey + ":" + level);
 
         book.setItemMeta(meta);
         return book;
+    }
+
+    private static @NotNull Component getComponent(String line, Map<String, Object> parameters) {
+        String processedLine = line;
+
+        // Replace all parameter placeholders dynamically
+        for (Map.Entry<String, Object> entry : parameters.entrySet()) {
+            String placeholder = "{" + entry.getKey() + "}";
+            processedLine = processedLine.replace(placeholder, String.valueOf(entry.getValue()));
+        }
+
+        Component lineComponent = Component.text(processedLine)
+                .color(TextColor.color(0x7F7F7F))
+                .decoration(TextDecoration.ITALIC, false);
+        return lineComponent;
     }
 
     // Number to Roman Number
