@@ -132,10 +132,9 @@ public final class NextEnchantments extends JavaPlugin {
             processedLine = processedLine.replace(placeholder, String.valueOf(entry.getValue()));
         }
 
-        Component lineComponent = Component.text(processedLine)
+        return Component.text(processedLine)
                 .color(TextColor.color(0x7F7F7F))
                 .decoration(TextDecoration.ITALIC, false);
-        return lineComponent;
     }
 
     // Number to Roman Number
