@@ -11,9 +11,9 @@ translations:
       Rage:
         name: '怒火'
         description:
-          - '右键进入 {x} 秒狂暴模式'
-          - '对敌人造成 {y} 倍伤害的同时对自己造成 {z} 滴血伤害'
-          - '冷却时间: {cd} 秒'
+          - '右键进入 {duration} 秒狂暴模式'
+          - '对敌人造成 {damage_multiplier} 倍伤害的同时对自己造成 {self_damage} 点伤害'
+          - '冷却时间: {cooldown} 秒'
           - '可用于附魔剑'
 
 enchantments:
@@ -23,35 +23,35 @@ enchantments:
       1:
         category: 1
         parameters:
-          x: 20
-          y: 1.2
-          z: 1
-          cd: 40
+          duration: 20
+          damage_multiplier: 1.2
+          self_damage: 1
+          cooldown: 40
       2:
         category: 2
         parameters:
-          x: 30
-          y: 1.5
-          z: 1
-          cd: 30
+          duration: 30
+          damage_multiplier: 1.5
+          self_damage: 1
+          cooldown: 30
       3:
         category: 2
         parameters:
-          x: 30
-          y: 1.8
-          z: 1
-          cd: 25
+          duration: 30
+          damage_multiplier: 1.8
+          self_damage: 1
+          cooldown: 25
       4:
         category: 3
         parameters:
-          x: 45
-          y: 2
-          z: 0.5
-          cd: 20
+          duration: 45
+          damage_multiplier: 2
+          self_damage: 0.5
+          cooldown: 20
       5:
         category: 4
         parameters:
-          x: 60
-          y: 3
-          z: 0.5
-          cd: 15
+          duration: 60
+          damage_multiplier: 3
+          self_damage: 0.5
+          cooldown: 15
