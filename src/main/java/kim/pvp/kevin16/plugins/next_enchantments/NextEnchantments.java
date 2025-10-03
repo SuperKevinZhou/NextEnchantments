@@ -18,6 +18,7 @@ import java.util.*;
 
 public final class NextEnchantments extends JavaPlugin {
 
+    private static NextEnchantments instance;
     public static final Map<Integer, String> ENCHANTMENTS_MAP;
     public static String lang;
 
@@ -33,6 +34,7 @@ public final class NextEnchantments extends JavaPlugin {
     @Override
     public void onEnable() {
         // Plugin startup logic
+        instance = this;
         getLogger().info("NextEnchantments Plugin has been enabled!");
         saveDefaultConfig();
         lang = getConfig().getString("lang");
@@ -42,6 +44,13 @@ public final class NextEnchantments extends JavaPlugin {
     public void onDisable() {
         // Plugin shutdown logic
         getLogger().info("NextEnchantments Plugin has been disabled!");
+    }
+
+    public static NextEnchantments getInstance() {
+        if (instance == null) {
+            throw new IllegalStateException("The plugin hasn't been initialized yet!");
+        }
+        return instance;
     }
 
     public ItemStack getEnchantmentBook(int id, int level) {
