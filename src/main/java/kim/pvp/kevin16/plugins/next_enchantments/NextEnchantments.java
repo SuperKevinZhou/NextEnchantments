@@ -96,7 +96,7 @@ public final class NextEnchantments extends JavaPlugin {
         List<Component> lore = new ArrayList<>();
 
         // Create text component
-        Component categoryComponent = Component.text("分类: " + categoryName)
+        Component categoryComponent = Component.text(getConfig().getString("translations." + lang + ".ui.CATEGORY") + categoryName)
                 .color(TextColor.color(0xAAAAAA))
                 .decoration(TextDecoration.ITALIC, false);
         lore.add(categoryComponent);

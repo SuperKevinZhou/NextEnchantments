@@ -2,6 +2,8 @@ lang: zh-cn
 
 translations:
   zh-cn:
+    ui:
+      CATEGORY: '分类：'
     category:
       1: '普通'
       2: '稀有'
