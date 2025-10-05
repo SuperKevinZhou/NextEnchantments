@@ -1,5 +1,6 @@
 package kim.pvp.kevin16.plugins.next_enchantments;
 
+import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
@@ -16,6 +17,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
+@SuppressWarnings("UnstableApiUsage")
 public final class NextEnchantments extends JavaPlugin {
 
     private static NextEnchantments instance;
@@ -38,6 +40,9 @@ public final class NextEnchantments extends JavaPlugin {
         getLogger().info("NextEnchantments Plugin has been enabled!");
         saveDefaultConfig();
         lang = getConfig().getString("lang");
+        this.getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS, commands -> {
+            commands.registrar().register(NextEnchantmentsCommandsBuilder.build(), List.of("nextenchantments", "ne", "next_en"));
+        });
     }
 
     @Override
