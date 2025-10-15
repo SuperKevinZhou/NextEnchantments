@@ -9,16 +9,16 @@ import io.papermc.paper.command.brigadier.Commands;
 import io.papermc.paper.command.brigadier.argument.ArgumentTypes;
 
 @SuppressWarnings("UnstableApiUsage")
-public class NextEnchantmentsCommandsBuilder {
+public class NextEnchantmentsCommands {
     public static LiteralCommandNode<CommandSourceStack> build() {
         return Commands.literal("nextenchantments")
                 .then(Commands.literal("book")
                         .then(Commands.literal("give")
                                 .then(Commands.argument("id", IntegerArgumentType.integer(1, 4096))
                                         .then(Commands.argument("level", IntegerArgumentType.integer(1, 128))
-                                                .executes(NextEnchantmentsCommandsBuilder::giveBookToHimself)
+                                                .executes(NextEnchantmentsCommands::giveBookToHimself)
                                                 .then(Commands.argument("player", ArgumentTypes.player())
-                                                        .executes(NextEnchantmentsCommandsBuilder::giveBookToPlayer)
+                                                        .executes(NextEnchantmentsCommands::giveBookToPlayer)
                                                 )
                                         )
                                 )

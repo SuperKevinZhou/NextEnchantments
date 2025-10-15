@@ -41,7 +41,7 @@ public final class NextEnchantments extends JavaPlugin {
         saveDefaultConfig();
         lang = getConfig().getString("lang");
         this.getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS, commands -> {
-            commands.registrar().register(NextEnchantmentsCommandsBuilder.build(), List.of("nextenchantments", "ne", "next_en"));
+            commands.registrar().register(NextEnchantmentsCommands.build(), List.of("nextenchantments", "ne", "next_en"));
         });
     }
 
