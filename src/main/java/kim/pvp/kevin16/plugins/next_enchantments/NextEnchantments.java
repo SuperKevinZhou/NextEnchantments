@@ -21,7 +21,7 @@ import java.util.*;
 public final class NextEnchantments extends JavaPlugin {
 
     private static NextEnchantments instance;
-    public static Map<Integer, String> ENCHANTMENTS_MAP;
+    public static Map<Integer, String> enchantments_map;
     public static String lang;
 
     static {
@@ -30,7 +30,7 @@ public final class NextEnchantments extends JavaPlugin {
 //        tempMap.put(1, "Vampire");
 //        tempMap.put(2, "BloodDrinking");
 //        tempMap.put(3, "PeaceMaker");
-        ENCHANTMENTS_MAP = Collections.unmodifiableMap(tempMap);
+        enchantments_map = tempMap;
     }
 
     @Override
@@ -60,7 +60,7 @@ public final class NextEnchantments extends JavaPlugin {
 
     public ItemStack getEnchantmentBook(int id, int level) {
         // Get enchantment name
-        String enchantKey = ENCHANTMENTS_MAP.get(id);
+        String enchantKey = enchantments_map.get(id);
         if (enchantKey == null) {
             getLogger().warning("Unknown enchantment id: " + id);
             return new ItemStack(Material.AIR);
