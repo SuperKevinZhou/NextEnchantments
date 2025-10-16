@@ -21,7 +21,7 @@ import java.util.*;
 public final class NextEnchantments extends JavaPlugin {
 
     private static NextEnchantments instance;
-    public static final Map<Integer, String> ENCHANTMENTS_MAP;
+    public static Map<Integer, String> ENCHANTMENTS_MAP;
     public static String lang;
 
     static {
@@ -127,11 +127,12 @@ public final class NextEnchantments extends JavaPlugin {
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
 
         // Add PersistentDataContainer with all parameters
-        NamespacedKey enchantKeyObj = new NamespacedKey(this, "custom_enchant");
+        NamespacedKey enchantKeyObj = new NamespacedKey(this, "ne_enchant");
+        int enchantId = ((id - 1) << 12) | (level - 1);
 
         // Store enchantment ID and level in PDC
-        meta.getPersistentDataContainer().set(enchantKeyObj, PersistentDataType.STRING,
-                enchantKey + ":" + level);
+        meta.getPersistentDataContainer().set(enchantKeyObj, PersistentDataType.INTEGER,
+                enchantId);
 
         book.setItemMeta(meta);
         return book;
