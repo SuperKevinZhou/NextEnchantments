@@ -58,7 +58,7 @@ public final class NextEnchantments extends JavaPlugin {
         return instance;
     }
 
-    public ItemStack getEnchantmentBook(int id, int level) {
+    private ItemStack getEnchantmentBook(int id, int level) {
         // Get enchantment name
         String enchantKey = enchantments_map.get(id);
         if (enchantKey == null) {
@@ -169,7 +169,7 @@ public final class NextEnchantments extends JavaPlugin {
         };
     }
 
-    public Map<String, Object> getEnchantmentParameters(String enchantKey, int level) {
+    private Map<String, Object> getEnchantmentParameters(String enchantKey, int level) {
         Map<String, Object> parameters = new HashMap<>();
         String path = "enchantments." + enchantKey + ".levels." + level;
 
