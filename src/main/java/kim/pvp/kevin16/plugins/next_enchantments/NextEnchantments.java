@@ -58,7 +58,8 @@ public final class NextEnchantments extends JavaPlugin {
         return instance;
     }
 
-    private ItemStack getEnchantmentBook(int id, int level) {
+    private ItemStack getEnchantmentBook(Enchantment enchantment) {
+        int id = enchantment.getId(), level = enchantment.getLevel();
         // Get enchantment name
         String enchantKey = enchantments_map.get(id);
         if (enchantKey == null) {
@@ -128,7 +129,7 @@ public final class NextEnchantments extends JavaPlugin {
 
         // Add PersistentDataContainer with all parameters
         NamespacedKey enchantKeyObj = new NamespacedKey(this, "ne_enchant");
-        int enchantId = ((id - 1) << 12) | (level - 1);
+        int enchantId = enchantment.toInt();
 
         // Store enchantment ID and level in PDC
         meta.getPersistentDataContainer().set(enchantKeyObj, PersistentDataType.INTEGER,
