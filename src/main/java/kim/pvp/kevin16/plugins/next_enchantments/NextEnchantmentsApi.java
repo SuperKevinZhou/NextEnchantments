@@ -21,7 +21,7 @@ public class NextEnchantmentsApi {
         return plugin.getEnchantmentBook(enchantment);
     }
 
-    public Map<String, Object> getEnchantmentParameters(String enchantKey, int level) {
-        return plugin.getEnchantmentParameters(enchantKey, level);
+    public Map<String, Object> getEnchantmentParameters(Enchantment enchantment) {
+        return plugin.getEnchantmentParameters(enchantment);
     }
 }

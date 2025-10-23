@@ -21,16 +21,23 @@ import java.util.*;
 public final class NextEnchantments extends JavaPlugin {
 
     private static NextEnchantments instance;
-    public static Map<Integer, String> enchantments_map;
+    public static Map<String, Integer> enchantments_map;
+    public static Map<Integer, String> reverse_enchantments_map;
     public static String lang;
 
     static {
-        Map<Integer, String> tempMap = new HashMap<>();
-        tempMap.put(0, "Rage");
-//        tempMap.put(1, "Vampire");
-//        tempMap.put(2, "BloodDrinking");
-//        tempMap.put(3, "PeaceMaker");
+        Map<String, Integer> tempMap = new HashMap<>();
+        tempMap.put("Rage", 0);
+//        tempMap.put("Vampire", 1);
+//        tempMap.put("BloodDrinking", 2);
+//        tempMap.put("PeaceMaker", 3);
         enchantments_map = tempMap;
+
+
+        reverse_enchantments_map = new HashMap<>();
+        for (Map.Entry<String, Integer> entry : enchantments_map.entrySet()) {
+            reverse_enchantments_map.put(entry.getValue(), entry.getKey());
+        }
     }
 
     @Override
@@ -60,8 +67,8 @@ public final class NextEnchantments extends JavaPlugin {
 
     ItemStack getEnchantmentBook(Enchantment enchantment) {
         int id = enchantment.getId(), level = enchantment.getLevel();
+        String enchantKey = enchantment.getName();
         // Get enchantment name
-        String enchantKey = enchantments_map.get(id);
         if (enchantKey == null) {
             getLogger().warning("Unknown enchantment id: " + id);
             return new ItemStack(Material.AIR);
@@ -170,7 +177,9 @@ public final class NextEnchantments extends JavaPlugin {
         };
     }
 
-    Map<String, Object> getEnchantmentParameters(String enchantKey, int level) {
+    Map<String, Object> getEnchantmentParameters(Enchantment enchantment) {
+        String enchantKey = enchantment.getName();
+        int level = enchantment.getLevel();
         Map<String, Object> parameters = new HashMap<>();
         String path = "enchantments." + enchantKey + ".levels." + level;
 
